@@ -20,6 +20,7 @@ public class HrmLoginPage {
     By userName = By.xpath("//input[@name='username']");
     By password = By.xpath("//input[@name='password']");
     By login = By.xpath("//button[@type='submit']");
+    By error = By.xpath("//p[text()='Invalid credentials']");
 
     public void setUserName(String user) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(userName)).sendKeys(user);
@@ -37,4 +38,7 @@ public class HrmLoginPage {
         return new HomePage(driver);
     }
 
+    public String  setErrorMsg(){
+        return wait.until(ExpectedConditions.elementToBeClickable(error)).getText();
+    }
 }

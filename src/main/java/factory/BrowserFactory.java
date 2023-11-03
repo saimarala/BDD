@@ -25,7 +25,8 @@ public class BrowserFactory {
         if (browserName.contains("Chrome") || browserName.contains("GC") || browserName.contains("Google Chrome")) {
             ChromeOptions opt = new ChromeOptions();
            // opt.addArguments("--remote-allow-origins=*");
-           // opt.setHeadless(true);
+          //  opt.setHeadless(true);
+            opt.addArguments("--headless=new");
             driver = new ChromeDriver(opt);
             tDriver.set(driver);
         } else if (browserName.contains("Firefox")) {

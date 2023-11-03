@@ -105,4 +105,9 @@ public class CommonStepDef {
 
     }
 
+    @Then(": Validate the error message")
+    public void validate_the_error_message() {
+        Assert.assertTrue(login.setErrorMsg().contains("Invalid credentials"));
+    }
+
 }

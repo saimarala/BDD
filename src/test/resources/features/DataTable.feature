@@ -9,10 +9,17 @@ Feature: Data driven
   Scenario Outline: Unsuccessful login with invalid or empty credentials
     And : I have entered invalid "<username>" and "<password>"
     When : I click on the login button
-    #Then : I should be logged in successfully
+    Then : Validate the error message
 
+    @Web
     Examples:
       | username | password  |
-      | Admin    | admin1234 |
-      | Admin    | admin12   |
-      | Admin    | admin123  |
+      | `Admin ` | admin123 |
+      | Admin    | admin12  |
+      | Admin    | admin123 |
+    @mobile
+    Examples:
+      | username | password  |
+      | `sai ` | admin123 |
+      | test    | admin12  |
+      | dd    | admin123 |

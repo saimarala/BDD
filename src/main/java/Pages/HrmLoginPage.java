@@ -14,7 +14,7 @@ public class HrmLoginPage {
     public HrmLoginPage(WebDriver driver) {
 
         this.driver = driver;
-       wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+       this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
     }
 
     By userName = By.xpath("//input[@name='username']");

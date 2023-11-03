@@ -1,29 +1,26 @@
 package com.qa.hrm;
 
 import Pages.HomePage;
+import Pages.HrmLoginPage;
 import factory.BrowserFactory;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.Reporter;
-import Pages.HrmLoginPage;
 
-import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
-public class HrmLoginStepDefinitions {
+public class CommonStepDef {
     HrmLoginPage login;
     WebDriver driver;
     HomePage hm;
 
 
-//    @Before
+    //    @Before
 //    public void setup(){
 //        driver = new ChromeDriver();
 //        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
@@ -39,7 +36,7 @@ public class HrmLoginStepDefinitions {
     public void open_the_app() {
         BrowserFactory.getDriver().get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
-      //  driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        //  driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         login=new HrmLoginPage(BrowserFactory.getDriver());
 
     }
@@ -56,9 +53,17 @@ public class HrmLoginStepDefinitions {
         login.setPassword(password);
     }
 
+    @Given(": I have enter credentials {string} and {string}")
+    public void i_have_enter_credentials_and(String username, String password) {
+        // login=new HrmLoginPage(BrowserFactory.getDriver());
+        login.setUserName(username);
+        login.setPassword(password);
+    }
+
+
     @When(": I click on the login button")
     public void i_click_on_the_login_button() {
-        hm=login.setLogin();
+        this.hm=login.setLogin();
 
     }
 
@@ -70,7 +75,7 @@ public class HrmLoginStepDefinitions {
 
     @When(": Click on admin")
     public void click_on_admin() {
-      hm.admin();
+        hm.admin();
     }
 
 
@@ -90,5 +95,14 @@ public class HrmLoginStepDefinitions {
 //        Assert.assertTrue(hm.pimPage().isDisplayed());
 //    }
 
+
+    @Given("I have enter login credentials")
+    public void i_have_enter_login_credentials(DataTable dataTable) {
+        List<Map<String,String>> credList=dataTable.asMaps();
+        login.setUserName(credList.get(0).get("username"));
+        login.setPassword(credList.get(0).get("password"));
+
+
+    }
 
 }

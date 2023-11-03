@@ -16,7 +16,7 @@ public class HomePage  {
      WebDriverWait wait;
     public  HomePage(WebDriver driver){
         this.driver=driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(60));
     }
     By dashboard = By.xpath("//h6[text()='Dashboard']");
     By admin = By.xpath("//span[text()='Admin']");

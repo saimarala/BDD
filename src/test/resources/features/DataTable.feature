@@ -15,11 +15,11 @@ Feature: Data driven
     Examples:
       | username | password  |
       | `Admin ` | admin123 |
-      | Admin    | admin12  |
+      | "Admin  "  | admin12  |
       | Admin    | admin123 |
     @mobile
     Examples:
       | username | password  |
-      | `sai ` | admin123 |
-      | test    | admin12  |
+      | sai | admin123 |
+      | test| admin12  |
       | dd    | admin123 |

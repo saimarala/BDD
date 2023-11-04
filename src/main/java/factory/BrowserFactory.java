@@ -26,7 +26,7 @@ public class BrowserFactory {
             ChromeOptions opt = new ChromeOptions();
            // opt.addArguments("--remote-allow-origins=*");
           //  opt.setHeadless(true);
-            opt.addArguments("--headless=new");
+           // opt.addArguments("--headless=new");
             driver = new ChromeDriver(opt);
             tDriver.set(driver);
         } else if (browserName.contains("Firefox")) {

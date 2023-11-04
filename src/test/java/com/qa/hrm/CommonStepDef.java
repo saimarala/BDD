@@ -4,6 +4,7 @@ import Pages.HomePage;
 import Pages.HrmLoginPage;
 import factory.BrowserFactory;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,7 +19,7 @@ public class CommonStepDef {
     HrmLoginPage login;
     WebDriver driver;
     HomePage hm;
-
+    String Author;
 
     //    @Before
 //    public void setup(){
@@ -49,6 +50,12 @@ public class CommonStepDef {
 
     @And(": I have entered invalid {string} and {string}")
     public void i_have_entered_invalid_and(String username, String password) {
+        login.setUserName(username);
+        login.setPassword(password);
+    }
+
+    @Given(": I have entered valid credentials {string} and {string}")
+    public void test(String username, String password) {
         login.setUserName(username);
         login.setPassword(password);
     }
@@ -96,12 +103,12 @@ public class CommonStepDef {
 //    }
 
 
-    @Given("I have enter login credentials")
+    @Given(": I have enter login credentials")
     public void i_have_enter_login_credentials(DataTable dataTable) {
         List<Map<String,String>> credList=dataTable.asMaps();
         login.setUserName(credList.get(0).get("username"));
         login.setPassword(credList.get(0).get("password"));
-
+       // throw new io.cucumber.java.S;
 
     }
 
@@ -109,5 +116,7 @@ public class CommonStepDef {
     public void validate_the_error_message() {
         Assert.assertTrue(login.setErrorMsg().contains("Invalid credentials"));
     }
+
+
 
 }

@@ -22,7 +22,11 @@ public class HomePage  {
     By admin = By.xpath("//span[text()='Admin']");
     By adminUser =By.xpath("//span[@class='oxd-topbar-header-breadcrumb']");
     By pim = By.xpath("//span[text()='PIM']");
-
+    By empList = By.xpath("(//nav[@role='navigation'])[2]//a[text()='Employee List']");
+    By report = By.xpath("(//nav[@role='navigation'])[2]//a[text()='Reports']");
+    By search = By.xpath("//div[@class='oxd-autocomplete-wrapper']//input");
+    By searchButton = By.xpath("//button[@type='submit']");
+    By invalid = By.xpath("//span[contains(@class,'error-message')]");
     public WebElement homepageUrl() {
         //wait.until(ExpectedConditions.urlContains("dashboard/index"));
        WebElement ele=wait.until(ExpectedConditions.visibilityOfElementLocated(dashboard));
@@ -47,5 +51,17 @@ public class HomePage  {
         return ele;
     }
 
+    public WebElement empList(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(empList));
+    }
 
+    public void reports(String searchValue){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(report)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(search)).sendKeys(searchValue);
+
+    }
+   public String error(){
+       wait.until(ExpectedConditions.visibilityOfElementLocated(searchButton)).click();
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(invalid)).getText();
+   }
 }

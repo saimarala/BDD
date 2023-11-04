@@ -1,10 +1,7 @@
 package Hooks;
 
 import factory.BrowserFactory;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
+import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -65,6 +62,19 @@ public class Hook {
         System.out.println("Before each step");
     }
 
+    @AfterStep
+    public void afStep(){
+        System.out.println("After each step" );
+    }
+
+    @BeforeAll
+    public static void beforeAll(){
+       System.out.println("Before scenario only one time");
+    }
+    @AfterAll
+    public static void afterAll(){
+        System.out.println("After all the  scenario only one time");
+    }
 
     @AfterStep("@E2E")
 

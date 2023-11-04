@@ -5,10 +5,7 @@ import Pages.HrmLoginPage;
 import factory.BrowserFactory;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -117,6 +114,16 @@ public class CommonStepDef {
         Assert.assertTrue(login.setErrorMsg().contains("Invalid credentials"));
     }
 
+    @And(": empList should be display")
+    public void emp_list_should_be_display() {
+        Assert.assertTrue(hm.empList().isDisplayed());
+    }
+
+    @But(": search with invalid data and validate error msg")
+    public void search_with_invalid_data_and_validate_error_msg() {
+        hm.reports("dd");
+        Assert.assertTrue(hm.error().contains("Invalid"));
+    }
 
 
 }

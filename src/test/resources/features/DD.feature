@@ -25,3 +25,5 @@ Feature: Data driven
     * : I click on the login button
     When : Click on PIM
     Then : Should be display PIM page
+    And : empList should be display
+    But : search with invalid data and validate error msg

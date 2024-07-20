@@ -1,14 +1,19 @@
 package com.qa.hrm;
 
+import Books.Book;
+import Books.BookCatalog;
+import Books.BookStore;
 import Pages.HomePage;
 import Pages.HrmLoginPage;
 import factory.BrowserFactory;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.DataTableType;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.Reporter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +129,52 @@ public class CommonStepDef {
         hm.reports("dd");
         Assert.assertTrue(hm.error().contains("Invalid"));
     }
+
+    //Book store def and Data tables
+    private BookStore store;
+    private List<Book> foundBooks;
+    private Book foundBook;
+
+    @Before("@BookStoreList")
+    public void setUp() {
+        store = new BookStore();
+        foundBooks = new ArrayList<>();
+    }
+    @Given(": I have the following books in the store by list")
+    public void i_have_the_following_books_in_the_store_by_list(DataTable table) {
+       // List<List<String>> rows = dataTable.asList(String.class);
+        List<List<String>> rows = table.asLists();
+       for(List<String> col :rows){
+           store.addBook(new Book(col.get(0),col.get(1)));
+
+       }
+    }
+    @When(": I search for books by author {string}")
+    public void i_search_for_books_by_author(String author) {
+       foundBooks = store.booksByAuthor(author);
+    }
+    @Then(": I find {int} books")
+    public void i_find_books(Integer count) {
+        Reporter.log(String.valueOf("find no of books :"+foundBooks.size()),true);
+        Assert.assertEquals(count,foundBooks.size());
+    }
+
+    @Given("I have the following books in the store by map")
+    public void i_have_the_following_books_in_the_store_by_map(DataTable dataTable) {
+        List<Map<String,String>>rows=dataTable.asMaps();
+        for (Map<String,String>col :rows){
+            store.addBook(new Book(col.get("title"),col.get("author")));
+        }
+
+    }
+
+    @Given("I have the following books in the store with transformer")
+    public void i_have_the_following_books_in_the_store_with_transformer(BookCatalog catalog) {
+     store.addAllBooks(catalog.getBooks());
+    }
+
+
+
 
 
 }
